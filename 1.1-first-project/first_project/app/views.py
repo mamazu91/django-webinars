@@ -1,35 +1,31 @@
 from django.http import HttpResponse
-from django.shortcuts import render, reverse
+from django.shortcuts import reverse, render
+from datetime import datetime
+from pathlib import Path
+
+
+def curr_time_view(request):
+    return HttpResponse(f'Текущее время: <br> {datetime.now().strftime("%H:%M:%S")}')
+
+
+def workdir_view(request):
+    path = Path('.')
+    curr_work_dir_content = [item.name for item in path.iterdir()]
+    return HttpResponse(
+        f'Current working dir: <br> {path.cwd()} <br><br> Content: <br> {"<br>".join(curr_work_dir_content)}')
 
 
 def home_view(request):
     template_name = 'app/home.html'
-    # впишите правильные адреса страниц, используя
-    # функцию `reverse`
+
     pages = {
         'Главная страница': reverse('home'),
-        'Показать текущее время': '',
-        'Показать содержимое рабочей директории': ''
+        'Показать текущее время': reverse('current_time'),
+        'Показать содержимое рабочей директории': reverse('workdir')
     }
-    
-    # context и параметры render менять не нужно
-    # подбробнее о них мы поговорим на следующих лекциях
+
     context = {
         'pages': pages
     }
+
     return render(request, template_name, context)
-
-
-def time_view(request):
-    # обратите внимание – здесь HTML шаблона нет, 
-    # возвращается просто текст
-    current_time = None
-    msg = f'Текущее время: {current_time}'
-    return HttpResponse(msg)
-
-
-def workdir_view(request):
-    # по аналогии с `time_view`, напишите код,
-    # который возвращает список файлов в рабочей 
-    # директории
-    raise NotImplemented
