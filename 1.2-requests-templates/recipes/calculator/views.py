@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 DATA = {
@@ -16,15 +17,24 @@ DATA = {
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
     },
-    # можете добавить свои рецепты ;)
 }
 
-# Напишите ваш обработчик. Используйте DATA как источник данных
-# Результат - render(request, 'calculator/index.html', context)
-# В качестве контекста должен быть передан словарь с рецептом:
-# context = {
-#   'recipe': {
-#     'ингредиент1': количество1,
-#     'ингредиент2': количество2,
-#   }
-# }
+
+def dish_view(request, input_dish):
+    template = 'calculator/index.html'
+
+    try:
+        servings = int(request.GET.get('servings', 1))
+    except ValueError:
+        return HttpResponse(f'Parameter "servings" must be an int!')
+    else:
+        if servings == 0:
+            return HttpResponse(f'Parameter "servings" must be bigger than 0!')
+
+        recipe_dish = DATA.get(input_dish, None)
+        recipe = {ingredient: amount * servings for ingredient, amount in recipe_dish.items()} if recipe_dish else None
+        context = {
+            'recipe': recipe
+        }
+
+        return render(request, template, context)
