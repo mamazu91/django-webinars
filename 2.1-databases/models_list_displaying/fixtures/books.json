@@ -16,5 +16,59 @@
       "author": "Джордж Оруэл",
       "pub_date": "2016-12-06"
     }
+  },
+  {
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+      "name": "Виртуальный свет",
+      "author": "Уильям Гибсон",
+      "pub_date": "1993-09-06"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 4,
+    "fields": {
+      "name": "Лэшер",
+      "author": "Энн Райс",
+      "pub_date": "1993-09-12"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 5,
+    "fields": {
+      "name": "Ночь в тоскливом октябре",
+      "author": "Роджер Желязны",
+      "pub_date": "1993-09-21"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 6,
+    "fields": {
+      "name": "Бойцовский клуб",
+      "author": "Чак Паланик",
+      "pub_date": "1996-08-17"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 7,
+    "fields": {
+      "name": "Конец времени компрозиторов",
+      "author": "Владимир Мартынов",
+      "pub_date": "2019-01-01"
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 8,
+    "fields": {
+      "name": "Употреблено",
+      "author": "Дэвид Кроненберг",
+      "pub_date": "2015-05-01"
+    }
   }
 ]
