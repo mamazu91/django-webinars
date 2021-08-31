@@ -37,10 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
-
-    'measurements',
+    'measurements.apps.MeasurementsConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'netology_simple_crud',
+        'USER': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -124,3 +123,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
