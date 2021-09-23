@@ -25,12 +25,13 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
     def validate(self, data):
-        creator = self.context["request"].user
-        open_publications_count = Advertisement.objects.select_related('creator').filter(
-            status='OPEN',
-            creator__username=creator).count()
+        if self.context['request'].stream.method == 'POST':
+            creator = self.context["request"].user
+            open_publications_count = Advertisement.objects.select_related('creator').filter(
+                status='OPEN',
+                creator__username=creator).count()
 
-        if open_publications_count >= 10:
-            raise ValidationError('User cannot have more than 10 open publications.')
+            if open_publications_count >= 10:
+                raise ValidationError('User cannot have more than 10 open publications.')
 
         return data
