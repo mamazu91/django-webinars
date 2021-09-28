@@ -48,19 +48,21 @@ def test_course_filter_name(client, course_factory):
 
 
 @pytest.mark.django_db
-def test_create_course(client):
+def test_course_create(client, student_factory):
+    students = student_factory(_quantity=3)
     payload = {
-        'name': 'Python in Web Development'
+        'name': 'Python in Web Development',
+        'students': [student.id for student in students]
     }
     url = reverse('courses-list')
     response = client.post(url, data=payload)
 
     assert response.status_code == 201
-    assert response.data['name'] == payload['name']
+    assert response.data['students'] == payload['students']
 
 
 @pytest.mark.django_db
-def test_patch_course(client, course_factory):
+def test_course_patch(client, course_factory):
     course = course_factory()
     url = reverse('courses-detail', args=(course.id,))
     payload = {
@@ -73,7 +75,7 @@ def test_patch_course(client, course_factory):
 
 
 @pytest.mark.django_db
-def test_delete_course(client, course_factory):
+def test_course_delete(client, course_factory):
     course = course_factory()
     url = reverse('courses-detail', args=(course.id,))
     response = client.delete(url)
